@@ -21,14 +21,10 @@ public class TC01_RegisterTest extends TC00_TestBase{
 
     @DataProvider(name = "userData")
     public static Object[][] provider() throws Exception{
-        String path = "./src\\test//resources\\dataRegister.csv";
+        String path = "./src\\test\\resources\\dataRegister.csv";
         ExtUtils ext = new CSVUtils(path,true);
         return ext.parseData() ;
     }
-
-
-
-
 
     @Test(dataProvider = "userData")
     public void validRegister(String firstName , String lastName , String email , String Password)
@@ -36,22 +32,17 @@ public class TC01_RegisterTest extends TC00_TestBase{
         homePage = new P01_HomePage(driver);
         homePage.goToRegisterPage();
 
-
-
         registerPage = new P02_RegisterPage(driver);
         Assert.assertEquals(registerPage.assertOnTitle().getText() , "Create New Customer Account");
         Assert.assertTrue(driver.getCurrentUrl().contains("/customer/account/create/"));
 
         registerPage.fillRegisterData(firstName ,lastName , email , Password);
 
-
         WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(registerPage.assertVisibleTxt()));
 
         Assert.assertTrue(registerPage.assertAfterRegister().getText().contains("Thank you for registering with Main Website Store"));
         Assert.assertTrue(registerPage.assertOnContactInf().getText().contains(firstName));
-
-
 
     }
 

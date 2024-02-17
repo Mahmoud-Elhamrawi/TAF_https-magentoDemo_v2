@@ -22,7 +22,7 @@ public class TC00_TestBase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 
-        driver.navigate().to("https://magento.softwaretestingboard.com/");
+        driver.get("https://magento.softwaretestingboard.com/");
     }
 
 
